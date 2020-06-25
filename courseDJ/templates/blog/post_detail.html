@@ -11,6 +11,9 @@
     <hr>
         <h2>{{ post.title }}</h2>
         <p>{{ post.mini_text }}</p>
-        <small>{{ post.published_date }}</small>
+        <p>Категория - {{ post.category.name }}</p>
+        <small>Автор: {{ post.author }} - {{ post.published_date }}</small>
+    <hr>
+    <h3>Комментарии</h3>
 </body>
 </html>
