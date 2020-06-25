@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% for category in categoryes %}
+    <a href="{% url 'category' category.slug %}"><p>{{ category.name }}</p></a>
+    {% endfor %}
+    <hr>
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.mini_text }}</p>
+        <small>{{ post.published_date }}</small>
+</body>
+</html>
