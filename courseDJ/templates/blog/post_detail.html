@@ -11,7 +11,7 @@
     <hr>
         <h2>{{ post.title }}</h2>
         <p>{{ post.mini_text }}</p>
-        <p>Категория - {{ post.category.name }}</p>
+        <p>Категория - <a href="{% url 'category' post.category.slug %}">{{ post.category.name }}</a></p>
         <small>Автор: {{ post.author }} - {{ post.published_date }}</small>
     <hr>
     <h3>Комментарии</h3>
