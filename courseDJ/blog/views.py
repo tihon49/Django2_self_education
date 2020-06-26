@@ -29,15 +29,16 @@ class PostDetailView(View):
 
 class CategoryView(View):
     '''Вывод статей категории'''
-    def get(self, request, category_name):
-        category = Category.objects.get(slug=category_name)
-        post = Post.objects.filter(category=category)
-        return render(request, category.template, {'posts': post})
+    def get(self, request, category_slug):
+        post = Post.objects.filter(category__slug=category_slug,
+                                   category__published=True,
+                                   published=True
+        )
+        return render(request, 'blog/post_list.html', {'posts': post})
 
 
 class TagView(View):
     '''Вывод статей тега'''
     def get(self, request, tag_slug):
-        tag = Tag.objects.get(slug=tag_slug)
-        posts = Post.objects.filter(tags=tag)
+        posts = Post.objects.filter(tags__slug=tag_slug)
         return render(request, 'blog/tag_list.html', {'posts': posts})
