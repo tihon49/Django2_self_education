@@ -1,9 +1,10 @@
 from datetime import datetime
 
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic.base import View
 
-from blog.models import Category, Post
+from blog.models import Category, Post, Tag
 
 
 class HomeView(View):
@@ -30,5 +31,13 @@ class CategoryView(View):
     '''Вывод статей категории'''
     def get(self, request, category_name):
         category = Category.objects.get(slug=category_name)
-        post = list(Post.objects.filter(category=category))
+        post = Post.objects.filter(category=category)
         return render(request, 'blog/post_list.html', {'posts': post})
+
+
+class TagView(View):
+    '''Вывод статей тега'''
+    def get(self, request, tag_slug):
+        tag = Tag.objects.get(slug=tag_slug)
+        posts = Post.objects.filter(tags=tag)
+        return render(request, 'blog/tag_list.html', {'posts': posts})

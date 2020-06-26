@@ -1,18 +1,17 @@
-<!DOCTYPE html> {% load static %}
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <title>Posts_list</title>
+    <title>Tags_list</title>
 </head>
 <body>
     <div class="container">
         <div class="row">
             {% for post in posts %}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <h2>{{ post }}</h2>
-                    <p>{{ post.text }}</p>
+                    <p>{{ post.mini_text }}</p>
                     <small>Дата публикации - {{ post.published_date }}</small>
                 </div>
             {% endfor %}

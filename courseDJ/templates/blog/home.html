@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Home_page</title>
 </head>
 <body>
     {% for category in categoryes %}
@@ -15,7 +15,7 @@
         <ul>
             {% for tag in post.tags.all %}
                 <li>
-                    <p>{{ tag }}</p>
+                    <p><a href="{% url 'tag_view' tag.slug %}">{{ tag }}</a></p>
                 </li>
             {% endfor %}
         </ul>
