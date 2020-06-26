@@ -24,7 +24,7 @@ class PostDetailView(View):
         post = Post.objects.get(slug=slug)
         context = {'categoryes': category_list,
                    'post': post}
-        return render(request, 'blog/post_detail.html', context)
+        return render(request, post.template, context)
 
 
 class CategoryView(View):
@@ -32,7 +32,7 @@ class CategoryView(View):
     def get(self, request, category_name):
         category = Category.objects.get(slug=category_name)
         post = Post.objects.filter(category=category)
-        return render(request, 'blog/post_list.html', {'posts': post})
+        return render(request, category.template, {'posts': post})
 
 
 class TagView(View):
