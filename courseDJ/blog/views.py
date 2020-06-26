@@ -13,7 +13,7 @@ class HomeView(View):
         post_list = Post.objects.filter(published_date__lte=datetime.now(), published=True)
         context = {'categoryes': category_list,
                    'post_list': post_list}
-        return render(request, 'blog/post_list.html', context)
+        return render(request, 'blog/home.html', context)
 
 
 class PostDetailView(View):
@@ -30,4 +30,5 @@ class CategoryView(View):
     '''Вывод статей категории'''
     def get(self, request, category_name):
         category = Category.objects.get(slug=category_name)
-        return render(request, 'blog/post_list.html', {'category': category})
+        post = list(Post.objects.filter(category=category))
+        return render(request, 'blog/post_list.html', {'posts': post})

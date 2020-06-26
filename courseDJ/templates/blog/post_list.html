@@ -5,21 +5,10 @@
     <title>Title</title>
 </head>
 <body>
-    {% for category in categoryes %}
-    <a href="{% url 'category' category.slug %}"><p>{{ category.name }}</p></a>
-    {% endfor %}
-    <hr>
-    {% for post in post_list %}
-        <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
-        <p>{{ post.mini_text }}</p>
-        <ul>
-            {% for tag in post.tags.all %}
-                <li>
-                    <p>{{ tag }}</p>
-                </li>
-            {% endfor %}
-        </ul>
-        <small>{{ post.published_date }}</small>
+    {% for post in posts %}
+        <h2>{{ post }}</h2>
+        <p>{{ post.text }}</p>
+        <small>Дата публикации - {{ post.published_date }}</small>
     {% endfor %}
 </body>
 </html>
