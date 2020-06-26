@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic.base import View
 
-from blog.models import Category, Post, Tag
+from blog.models import Category, Post
 
 
 class HomeView(View):
@@ -19,9 +19,9 @@ class HomeView(View):
 
 class PostDetailView(View):
     '''Вывод полной статьи'''
-    def get(self, request, category, slug):
+    def get(self, request, **kwargs):
         category_list = Category.objects.all()
-        post = Post.objects.get(slug=slug)
+        post = Post.objects.get(slug=kwargs.get('slug'))
         context = {'categoryes': category_list,
                    'post': post}
         return render(request, post.template, context)

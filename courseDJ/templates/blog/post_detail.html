@@ -27,8 +27,9 @@
     <h3>Комментарии</h3>
     {% for comment in post.comments.all %}
         <p>Пользователь - {{ comment.author }}</p>
+        <p>Добавлено - {{ comment.create_date }}</p>
         <p>{{ comment.text }}</p>
-        <p>Добавлен - {{ comment.create_date }}</p><hr>
+        <hr>
     {% endfor %}
 </body>
 </html>
