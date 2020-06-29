@@ -37,6 +37,7 @@ class Category(MPTTModel):
         verbose_name_plural = 'Категории новостей'
 
 
+
 class Tag(models.Model):
     name = models.CharField('Имя', max_length=100)
     slug = models.SlugField('Url', max_length=100)
@@ -51,6 +52,7 @@ class Tag(models.Model):
     class Meta:
         verbose_name = 'Тег'
         verbose_name_plural = 'Теги'
+
 
 
 class Post(models.Model):
@@ -99,12 +101,16 @@ class Post(models.Model):
     def get_comments_count(self):
         return self.comments.count()
 
+    def get_category_template(self):
+        return self.category.template
+
     def __str__(self):
         return self.title
 
     class Meta:
         verbose_name = 'Новость'
         verbose_name_plural = 'Новости'
+
 
 
 class Comment(models.Model):

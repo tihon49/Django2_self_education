@@ -28,17 +28,20 @@ class PostDetailView(View):
 
 
 class CategoryView(View):
-    '''Вывод статей категории'''
-    def get(self, request, category_slug):
-        post = Post.objects.filter(category__slug=category_slug,
-                                   category__published=True,
-                                   published=True
-        )
-        return render(request, 'blog/post_list.html', {'posts': post})
-
-
-class TagView(View):
-    '''Вывод статей тега'''
-    def get(self, request, tag_slug):
-        posts = Post.objects.filter(tags__slug=tag_slug)
-        return render(request, 'blog/tag_list.html', {'posts': posts})
+    '''Вывод статей'''
+    def get(self, request, category_slug=None, tag_slug=None):
+        posts = []
+        # по категории
+        if category_slug is not None:
+            posts = Post.objects.filter(category__slug=category_slug,
+                                        category__published=True,
+                                        published=True)
+        # по тегу
+        elif tag_slug is not None:
+            posts = Post.objects.filter(tags__slug=tag_slug,
+                                        published=True)
+        if posts.exists():
+            template = posts.first().get_category_template()
+        else:
+            template = 'blog/post_list.html'
+        return render(request, template, {'posts': posts})
