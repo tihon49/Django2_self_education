@@ -10,7 +10,7 @@ from blog.models import Category, Post
 class PostDetailView(View):
     '''Вывод полной статьи'''
     def get(self, request, **kwargs):
-        category_list = Category.objects.all()
+        category_list = Category.objects.filter(published=True)
         post = get_object_or_404(Post, slug=kwargs.get('slug'))
         return render(request, post.template, {'categoryes': category_list, 'post': post})
 
@@ -22,7 +22,7 @@ class PostListView(View):
 
     '''Вывод статей'''
     def get(self, request, category_slug=None, tag_slug=None):
-        category_list = Category.objects.all()
+        category_list = Category.objects.filter(published=True)
         # по категории
         if category_slug is not None:
             posts = self.get_queryset().filter(category__slug=category_slug,
