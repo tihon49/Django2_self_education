@@ -30,7 +30,8 @@ class PostListView(View):
                                                published=True)
         # по тегу
         elif tag_slug is not None:
-            posts = self.get_queryset().filter(tags__slug=tag_slug)
+            posts = self.get_queryset().filter(tags__slug=tag_slug,
+                                               tags__published=True)
         else:
             posts = self.get_queryset()
 
