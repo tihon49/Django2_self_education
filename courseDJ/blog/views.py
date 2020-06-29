@@ -1,18 +1,11 @@
 from datetime import datetime
 
-from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404, get_list_or_404, redirect
 from django.views.generic.base import View
 
-from blog.models import Category, Post
-
-
-
-class PostDetailView(View):
-    '''Вывод полной статьи'''
-    def get(self, request, **kwargs):
-        category_list = Category.objects.filter(published=True)
-        post = get_object_or_404(Post, slug=kwargs.get('slug'))
-        return render(request, post.template, {'categoryes': category_list, 'post': post})
+from blog.models import Category, Post, Comment
+from .forms import CommentForm
 
 
 
@@ -41,3 +34,32 @@ class PostListView(View):
             template = 'blog/post_list.html'
         return render(request, template, {'post_list': posts,
                                           'categoryes': category_list})
+
+
+
+class PostDetailView(View):
+    '''Вывод полной статьи'''
+    def get(self, request, **kwargs):
+        category_list = Category.objects.filter(published=True)
+        post = get_object_or_404(Post, slug=kwargs.get('slug'))
+        form = CommentForm()
+        return render(request, post.template, {'categoryes': category_list,
+                                               'post': post,
+                                               'form': form})
+
+    def post(self, request, **kwargs):
+        #заполнение формы данными из request.POST
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            #приостанавливаем сохранение формы для заполнения
+            #необходимых полей
+            form = form.save(commit=False)
+            form.post = Post.objects.get(slug=kwargs.get('slug'))
+            form.author = request.user
+            form.save()
+
+        return redirect(request.path)
+
+
+

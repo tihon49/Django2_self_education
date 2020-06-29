@@ -26,12 +26,23 @@
     <small>Просмотров - {{ post.viewd }}</small><br>
     <small>Комментариев - {{ post.get_comments_count }}</small>
     <hr>
-    <h3>Комментарии</h3>
+    
+    <h4>Комментарии</h4>
+    {% if user.is_authenticated %}
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Отправить</button>
+        </form>
+    {% else %}
+        <p>Чтобы оставить комментарий необходимо авторизоваться</p>
+    {% endif %}
+    
     {% for comment in post.comments.all %}
-        <p>Пользователь - {{ comment.author }}</p>
-        <p>Добавлено - {{ comment.create_date }}</p>
-        <p>{{ comment.text }}</p>
-        <hr>
+        Пользователь - {{ comment.author }}<br>
+        {{ comment.text }}<br>
+        Добавлен - {{ comment.create_date }}<br><br>
     {% endfor %}
+    <hr>
 </body>
 </html>
