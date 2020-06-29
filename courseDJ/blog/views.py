@@ -18,7 +18,7 @@ class PostDetailView(View):
 
 
 
-class CategoryView(View):
+class PostListView(View):
     def get_queryset(self):
         return Post.objects.filter(published_date__lte=datetime.now(), published=True)
 
@@ -28,12 +28,11 @@ class CategoryView(View):
         # по категории
         if category_slug is not None:
             posts = self.get_queryset().filter(category__slug=category_slug,
-                                        category__published=True,
-                                        published=True)
+                                               category__published=True,
+                                               published=True)
         # по тегу
         elif tag_slug is not None:
-            posts = self.get_queryset().filter(tags__slug=tag_slug,
-                                        published=True)
+            posts = self.get_queryset().filter(tags__slug=tag_slug)
         else:
             posts = self.get_queryset()
 
