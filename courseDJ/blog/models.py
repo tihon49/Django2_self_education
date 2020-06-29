@@ -36,9 +36,14 @@ class Category(MPTTModel):
         verbose_name = 'Категоря новостей'
         verbose_name_plural = 'Категории новостей'
 
+    #сортировка класса MPTTModel
+    class MPTTMeta:
+        order_insertion_by = ('sort',)
+
 
 
 class Tag(models.Model):
+    '''Модел тега'''
     name = models.CharField('Имя', max_length=100)
     slug = models.SlugField('Url', max_length=100)
     published = models.BooleanField('Отображать?', default=True)
@@ -56,6 +61,7 @@ class Tag(models.Model):
 
 
 class Post(models.Model):
+    '''Модель поста'''
     author = models.ForeignKey(
         User,
         verbose_name='Автор',
@@ -110,10 +116,13 @@ class Post(models.Model):
     class Meta:
         verbose_name = 'Новость'
         verbose_name_plural = 'Новости'
+        #сортировка
+        ordering = ['-published_date']
 
 
 
 class Comment(models.Model):
+    '''Модель комментария'''
     author = models.ForeignKey(
         User,
         verbose_name='Автор',
@@ -130,4 +139,6 @@ class Comment(models.Model):
     class Meta:
         verbose_name = 'Комментарий'
         verbose_name_plural = 'Комментарии'
+        #сортировка
+        ordering = ['-create_date']
 
