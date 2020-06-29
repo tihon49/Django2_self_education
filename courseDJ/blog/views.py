@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.views.generic.base import View
 
 from blog.models import Category, Post
@@ -11,7 +11,7 @@ class PostDetailView(View):
     '''Вывод полной статьи'''
     def get(self, request, **kwargs):
         category_list = Category.objects.all()
-        post = Post.objects.get(slug=kwargs.get('slug'))
+        post = get_object_or_404(Post, slug=kwargs.get('slug'))
         context = {'categoryes': category_list,
                    'post': post}
         return render(request, post.template, context)
