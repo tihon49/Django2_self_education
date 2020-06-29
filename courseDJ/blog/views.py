@@ -12,9 +12,7 @@ class PostDetailView(View):
     def get(self, request, **kwargs):
         category_list = Category.objects.all()
         post = get_object_or_404(Post, slug=kwargs.get('slug'))
-        context = {'categoryes': category_list,
-                   'post': post}
-        return render(request, post.template, context)
+        return render(request, post.template, {'categoryes': category_list, 'post': post})
 
 
 
