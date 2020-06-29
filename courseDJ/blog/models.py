@@ -117,7 +117,7 @@ class Post(models.Model):
         verbose_name = 'Новость'
         verbose_name_plural = 'Новости'
         #сортировка
-        ordering = ['-published_date']
+        ordering = ['sort', '-published_date']
 
 
 

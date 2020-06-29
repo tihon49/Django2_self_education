@@ -1,14 +1,12 @@
 <!DOCTYPE html>
+{% load blog_tags %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Post_detail</title>
 </head>
 <body>
-    {% for category in categoryes %}
-    <!--  оставлю этот вариант формирования url как старый  -->
-    <a href="{% url 'category' category.slug %}"><p>{{ category.name }}</p></a>
-    {% endfor %}
+    {% category_list %}
     <hr>
     <h2>{{ post.title }}</h2>
     <p>{{ post.mini_text }}</p>

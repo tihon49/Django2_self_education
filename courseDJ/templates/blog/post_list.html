@@ -1,5 +1,5 @@
-<!DOCTYPE html> {% load static %}
-
+<!DOCTYPE html>
+{% load blog_tags %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,17 +7,12 @@
     {% load blog_tags %}
 </head>
 <body>
-<!--    {% for category in categoryes %}-->
-<!--    <a href="{% url 'category' category.slug %}"><p>{{ category.name }}</p></a>-->
-<!--    {% endfor %}-->
+<!--    {% for_category_list order='id' count=3 as categoryes %}-->
+<!--        {% for category in categoryes %}-->
+<!--            <p><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></p>-->
+<!--        {% endfor %}-->
 <!--    <hr>-->
-
-    {% totlat_categoryes as queries %}
-        {% for category in queries %}
-            <p><a href="{{ category.get_absolute_url }}">{{ category }}</a></p>
-        {% endfor %}
-
-    <hr>
+    {% category_list count=3 template='base/blog/categoryes_v2.html' %}
 
     {% if post_list %}
         {% for post in post_list %}
@@ -30,6 +25,6 @@
     {% else %}
         <h2>Статей в дданной категории нет</h2>
     {% endif %}
-    </div>
+
 </body>
 </html>

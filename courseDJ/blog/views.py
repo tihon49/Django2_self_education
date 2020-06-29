@@ -1,7 +1,6 @@
 from datetime import datetime
 
-from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404, get_list_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.base import View
 
 from blog.models import Category, Post, Comment
@@ -15,7 +14,7 @@ class PostListView(View):
 
     '''Вывод статей'''
     def get(self, request, category_slug=None, tag_slug=None):
-        category_list = Category.objects.filter(published=True)
+        # category_list = Category.objects.filter(published=True)
         # по категории
         if category_slug is not None:
             posts = self.get_queryset().filter(category__slug=category_slug,
@@ -32,8 +31,9 @@ class PostListView(View):
             template = posts.first().get_category_template()
         else:
             template = 'blog/post_list.html'
-        return render(request, template, {'post_list': posts,
-                                          'categoryes': category_list})
+        # return render(request, template, {'post_list': posts,
+        #                                   'categoryes': category_list})
+        return render(request, template, {'post_list': posts})
 
 
 
